@@ -1,0 +1,16 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "faith-law-firm-website",
+  "compatibility_date": "2026-07-25",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "./worker/index.ts",
+  "preview_urls": true,
+  "assets": {
+    "directory": "dist/client",
+    "not_found_handling": "none",
+    "binding": "ASSETS"
+  },
+  "images": {
+    "binding": "IMAGES"
+  }
+}
