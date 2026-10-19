@@ -14,17 +14,16 @@ const links = [
 ];
 
 export function Header() {
-  const [open, setOpen] = useState(false);
   const pathname = usePathname();
-
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
+  // The menu is open only for the page it was opened on, so it closes on navigation
+  // without calling setState inside an effect.
+  const [openPath, setOpenPath] = useState<string | null>(null);
+  const open = openPath === pathname;
 
   useEffect(() => {
     if (!open) return;
     const close = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
+      if (event.key === "Escape") setOpenPath(null);
     };
     document.addEventListener("keydown", close);
     return () => document.removeEventListener("keydown", close);
@@ -73,7 +72,7 @@ export function Header() {
               aria-expanded={open}
               aria-controls="mobile-menu"
               aria-label={open ? "Close navigation menu" : "Open navigation menu"}
-              onClick={() => setOpen((value) => !value)}
+              onClick={() => setOpenPath(open ? null : pathname)}
             >
               <span />
               <span />
